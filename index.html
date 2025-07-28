@@ -6,17 +6,11 @@
     <title>Kyren Flow - Transforming India's Economic Landscape</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: #e2e8f0;
-            background: #0f1419;
         }
 
         .container {
@@ -42,13 +36,6 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-        }
-
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #60a5fa;
-            letter-spacing: -0.5px;
         }
 
         .nav-links {
@@ -536,6 +523,97 @@
                 flex-wrap: wrap;
             }
         }
+
+            body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    color: #ffffff; /* changed from #e2e8f0 */
+    background: #000000; /* changed from #0f1419 */
+}
+
+.logo {
+    color: #ffffff; /* changed from #60a5fa */
+}
+
+.nav-links a {
+    color: #dddddd; /* changed from #cbd5e1 */
+}
+
+.nav-links a:hover {
+    color: #ffffff; /* changed from #60a5fa */
+}
+
+.nav-links a::after {
+    background: #ffffff; /* changed from blue */
+}
+
+.cta-nav {
+    background: #ffffff;
+    color: #000000;
+}
+
+.cta-nav:hover {
+    background: #dddddd;
+}
+
+.btn-primary {
+    background: #ffffff;
+    color: #000000;
+}
+
+.btn-primary:hover {
+    background: #dddddd;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.btn-secondary:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.section-header h2,
+.service-card h3,
+.audience-card h3,
+.impact-card h3 {
+    color: #ffffff;
+}
+
+.section-header p,
+.service-card p,
+.service-features li,
+.audience-card p,
+.impact-card p,
+.footer-section p,
+.footer-section a {
+    color: #cccccc;
+}
+
+.footer-section a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    color: #aaaaaa;
+}
+
+.cta-section {
+    background: #ffffff;
+    color: #000000;
+}
+
+.cta-section .btn {
+    background: #000000;
+    color: #ffffff;
+}
+
+.cta-section .btn:hover {
+    background: #222222;
+}
     </style>
 </head>
 <body>
@@ -815,7 +893,7 @@
                 }
             });
         });
-        
+
         // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
