@@ -1,8 +1,4 @@
-// Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -553,6 +549,7 @@
                 <li><a href="#platform">Platform</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#insights">Insights</a></li>
+                <li><a href="analytical.html">Analysis</a></li>
             </ul>
             <a href="#contact" class="cta-nav">Get Started</a>
         </nav>
@@ -716,6 +713,46 @@
         </div>
     </section>
 
+    <!-- Analytical Model Section -->
+    <section class="services" id="analytics">
+        <div class="container">
+            <div class="section-header">
+                <h2>Business Credit Score Analyzer</h2>
+                <p>Input your business and personal details to get an instant credit score estimate and analysis.</p>
+            </div>
+            <form id="credit-form" style="max-width:600px;margin:0 auto;background:rgba(30,41,59,0.8);padding:2rem 2.5rem;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.2);">
+                <div style="display:grid;gap:1.5rem;">
+                    <div>
+                        <label for="name">Name</label><br>
+                        <input type="text" id="name" name="name" required style="width:100%;padding:0.75rem;border-radius:6px;border:none;margin-top:0.5rem;">
+                    </div>
+                    <div>
+                        <label for="age">Age</label><br>
+                        <input type="number" id="age" name="age" min="18" max="80" required style="width:100%;padding:0.75rem;border-radius:6px;border:none;margin-top:0.5rem;">
+                    </div>
+                    <div>
+                        <label for="income">Annual Income (₹)</label><br>
+                        <input type="number" id="income" name="income" min="0" required style="width:100%;padding:0.75rem;border-radius:6px;border:none;margin-top:0.5rem;">
+                    </div>
+                    <div>
+                        <label for="businessType">Business Type</label><br>
+                        <select id="businessType" name="businessType" required style="width:100%;padding:0.75rem;border-radius:6px;border:none;margin-top:0.5rem;">
+                            <option value="Student">Student Entrepreneur</option>
+                            <option value="Farmer">Agricultural Innovator</option>
+                            <option value="MSME">Micro/Small Enterprise</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="loanAmount">Requested Loan Amount (₹)</label><br>
+                        <input type="number" id="loanAmount" name="loanAmount" min="0" required style="width:100%;padding:0.75rem;border-radius:6px;border:none;margin-top:0.5rem;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top:1rem;">Analyze Credit Score</button>
+                </div>
+            </form>
+            <div id="credit-result" style="max-width:600px;margin:2rem auto 0;"></div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
@@ -812,6 +849,70 @@
             card.style.transform = 'translateY(30px)';
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(card);
+        });
+
+        // Analytical Model: Simple Credit Score Calculation
+        document.getElementById('credit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const age = parseInt(document.getElementById('age').value);
+            const income = parseInt(document.getElementById('income').value);
+            const businessType = document.getElementById('businessType').value;
+            const loanAmount = parseInt(document.getElementById('loanAmount').value);
+
+            // Simple scoring logic (for demo purposes)
+            let score = 600;
+            let analysis = [];
+            if (age < 21) {
+                score -= 50;
+                analysis.push('Young age, higher risk.');
+            } else if (age > 60) {
+                score -= 30;
+                analysis.push('Older age, moderate risk.');
+            } else {
+                score += 20;
+                analysis.push('Prime working age.');
+            }
+            if (income > 1000000) {
+                score += 80;
+                analysis.push('High income, low risk.');
+            } else if (income > 500000) {
+                score += 40;
+                analysis.push('Moderate income.');
+            } else {
+                score -= 30;
+                analysis.push('Low income, higher risk.');
+            }
+            if (loanAmount > income * 0.5) {
+                score -= 60;
+                analysis.push('Requested loan is high relative to income.');
+            } else {
+                score += 20;
+                analysis.push('Loan amount is reasonable.');
+            }
+            if (businessType === 'Student') {
+                score -= 20;
+                analysis.push('Student entrepreneurs may have less credit history.');
+            } else if (businessType === 'Farmer') {
+                score += 10;
+                analysis.push('Agricultural sector supported.');
+            } else if (businessType === 'MSME') {
+                score += 30;
+                analysis.push('MSMEs prioritized for growth.');
+            }
+            // Clamp score
+            score = Math.max(300, Math.min(900, score));
+            let rating = score >= 750 ? 'Excellent' : score >= 650 ? 'Good' : score >= 550 ? 'Fair' : 'Poor';
+            document.getElementById('credit-result').innerHTML = `
+                <div style="background:rgba(30,41,59,0.95);padding:2rem;border-radius:12px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.15);">
+                    <h3 style="color:#60a5fa;">Credit Score for ${name}</h3>
+                    <div style="font-size:2.5rem;font-weight:700;color:#60a5fa;margin:1rem 0;">${score}</div>
+                    <div style="font-size:1.2rem;font-weight:600;color:#f8fafc;margin-bottom:0.5rem;">${rating} Credit</div>
+                    <ul style="text-align:left;max-width:400px;margin:1rem auto 0;color:#cbd5e1;">
+                        ${analysis.map(a => `<li>${a}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
         });
     </script>
 </body>

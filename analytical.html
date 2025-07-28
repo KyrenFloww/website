@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Credit Score Analyzer | Kyren Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0f1419; color: #e2e8f0; margin: 0; }
+        .container { max-width: 800px; margin: 3rem auto; padding: 2.5rem; background: rgba(30,41,59,0.97); border-radius: 20px; box-shadow: 0 4px 32px rgba(0,0,0,0.18); }
+        h1 { color: #60a5fa; text-align: center; margin-bottom: 1.5rem; }
+        .section-header p { color: #94a3b8; text-align: center; margin-bottom: 2rem; }
+        form { background: rgba(30,41,59,0.85); padding: 2rem 2.5rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        label { font-weight: 500; }
+        input, select { width: 100%; padding: 0.75rem; border-radius: 6px; border: none; margin-top: 0.5rem; margin-bottom: 1.2rem; background: #1e293b; color: #e2e8f0; }
+        button { padding: 1rem 2rem; border-radius: 6px; font-weight: 600; font-size: 1rem; background: #60a5fa; color: #0f1419; border: none; cursor: pointer; transition: all 0.3s ease; }
+        button:hover { background: #3b82f6; }
+        #credit-result { margin-top: 2rem; }
+        .tips { background: #1e293b; border-radius: 10px; padding: 1.2rem; margin: 2rem 0; color: #a5b4fc; }
+        .sample-analysis { background: #232e3e; border-radius: 10px; padding: 1.2rem; margin: 2rem 0; color: #fbbf24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" style="display:inline-block;margin-bottom:2rem;padding:0.7rem 1.5rem;background:#60a5fa;color:#0f1419;font-weight:600;border-radius:6px;text-decoration:none;transition:background 0.3s;box-shadow:0 2px 8px rgba(96,165,250,0.08);text-align:center;">← Back to Home</a>
+        <h1>Business Credit Score Analyzer</h1>
+        <div class="section-header">
+            <p>Input your business and personal details to get an instant credit score estimate and analysis.<br>Our model considers age, income, business type, education, region, and collateral for a holistic assessment.</p>
+        </div>
+        <div class="tips">
+            <strong>Tips for a better score:</strong>
+            <ul>
+                <li>Higher education and stable income improve your score.</li>
+                <li>Providing collateral and realistic loan amounts increases approval chances.</li>
+                <li>Rural and artisan businesses are encouraged for inclusive growth.</li>
+            </ul>
+        </div>
+        <form id="credit-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="14" max="80" required>
+            <label for="income">Annual Income (₹)</label>
+            <input type="number" id="income" name="income" min="0" required>
+            <label for="businessType">Business Type</label>
+            <select id="businessType" name="businessType" required>
+                <option value="Student">Student Entrepreneur</option>
+                <option value="Farmer">Agricultural Innovator</option>
+                <option value="MSME">Micro/Small Enterprise</option>
+                <option value="Startup">Startup</option>
+                <option value="Retailer">Retailer</option>
+                <option value="Artisan">Artisan</option>
+                <option value="NGO">NGO</option>
+            </select>
+            <label for="region">Region</label>
+            <select id="region" name="region" required>
+                <option value="Urban">Urban</option>
+                <option value="Semi-Urban">Semi-Urban</option>
+                <option value="Rural">Rural</option>
+                <option value="Metro">Metro</option>
+            </select>
+            <label for="education">Education Level</label>
+            <select id="education" name="education" required>
+                <option value="None">None</option>
+                <option value="Primary">Primary</option>
+                <option value="Secondary">Secondary</option>
+                <option value="Graduate">Graduate</option>
+                <option value="Postgraduate">Postgraduate</option>
+            </select>
+            <label for="collateral">Collateral Type</label>
+            <select id="collateral" name="collateral" required>
+                <option value="None">None</option>
+                <option value="Movable">Movable</option>
+                <option value="Immovable">Immovable</option>
+                <option value="Third-party Guarantee">Third-party Guarantee</option>
+            </select>
+            <label for="loanAmount">Requested Loan Amount (₹)</label>
+            <input type="number" id="loanAmount" name="loanAmount" min="0" required>
+            <button type="submit">Analyze Credit Score</button>
+        </form>
+        <div id="credit-result"></div>
+        <div class="sample-analysis">
+            <strong>Sample Analysis:</strong><br>
+            <em>"A 17-year-old artisan from a rural area with secondary education and movable collateral, requesting a modest loan, is seen as a promising candidate for microfinance. The model rewards rural and artisan applicants, but age and education may lower the score. Collateral and reasonable loan size help offset risk."</em>
+        </div>
+    </div>
+    <script>
+    // Analytical Model: Enhanced Credit Score Calculation
+    document.getElementById('credit-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const age = parseInt(document.getElementById('age').value);
+        const income = parseInt(document.getElementById('income').value);
+        const businessType = document.getElementById('businessType').value;
+        const region = document.getElementById('region').value;
+        const education = document.getElementById('education').value;
+        const collateral = document.getElementById('collateral').value;
+        const loanAmount = parseInt(document.getElementById('loanAmount').value);
+        let score = 600;
+        let analysis = [];
+        if (age < 16) { score -= 80; analysis.push('Very young applicant, high risk.'); }
+        else if (age < 21) { score -= 50; analysis.push('Young age, higher risk.'); }
+        else if (age > 60) { score -= 30; analysis.push('Older age, moderate risk.'); }
+        else { score += 20; analysis.push('Prime working age.'); }
+        if (income > 2500000) { score += 120; analysis.push('Exceptional income, very low risk.'); }
+        else if (income > 1000000) { score += 80; analysis.push('High income, low risk.'); }
+        else if (income > 500000) { score += 40; analysis.push('Moderate income.'); }
+        else if (income <= 50000) { score -= 60; analysis.push('Very low income, high risk.'); }
+        else { score -= 30; analysis.push('Low income, higher risk.'); }
+        if (loanAmount > income * 0.5) { score -= 60; analysis.push('Requested loan is high relative to income.'); }
+        else { score += 20; analysis.push('Loan amount is reasonable.'); }
+        if (businessType === 'Student') { score -= 20; analysis.push('Student entrepreneurs may have less credit history.'); }
+        else if (businessType === 'Farmer') { score += 10; analysis.push('Agricultural sector supported.'); }
+        else if (businessType === 'MSME') { score += 30; analysis.push('MSMEs prioritized for growth.'); }
+        else if (businessType === 'Startup') { score += 15; analysis.push('Startups encouraged for innovation.'); }
+        else if (businessType === 'Retailer') { score += 5; analysis.push('Retailers are stable borrowers.'); }
+        else if (businessType === 'Artisan') { score += 10; analysis.push('Artisans supported for cultural value.'); }
+        else if (businessType === 'NGO') { score += 0; analysis.push('NGOs evaluated on impact.'); }
+        if (region === 'Rural') { score += 10; analysis.push('Rural development focus.'); }
+        else if (region === 'Urban') { score += 0; analysis.push('Urban region, standard risk.'); }
+        else if (region === 'Metro') { score += 5; analysis.push('Metro region, good access to resources.'); }
+        else if (region === 'Semi-Urban') { score += 5; analysis.push('Semi-urban, moderate risk.'); }
+        if (education === 'Postgraduate') { score += 20; analysis.push('Highly educated, lower risk.'); }
+        else if (education === 'Graduate') { score += 10; analysis.push('Graduate, moderate risk.'); }
+        else if (education === 'Secondary') { score += 0; analysis.push('Secondary education, standard risk.'); }
+        else if (education === 'Primary') { score -= 10; analysis.push('Primary education, higher risk.'); }
+        else if (education === 'None') { score -= 30; analysis.push('No formal education, high risk.'); }
+        if (collateral === 'Immovable') { score += 40; analysis.push('Immovable collateral, very secure.'); }
+        else if (collateral === 'Movable') { score += 20; analysis.push('Movable collateral, secure.'); }
+        else if (collateral === 'Third-party Guarantee') { score += 10; analysis.push('Third-party guarantee, moderate security.'); }
+        else if (collateral === 'None') { score -= 40; analysis.push('No collateral, high risk.'); }
+        score = Math.max(300, Math.min(900, score));
+        let rating = score >= 750 ? 'Excellent' : score >= 650 ? 'Good' : score >= 550 ? 'Fair' : 'Poor';
+        document.getElementById('credit-result').innerHTML = `
+            <div style="background:rgba(30,41,59,0.95);padding:2rem;border-radius:12px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.15);">
+                <h3 style="color:#60a5fa;">Credit Score for ${name}</h3>
+                <div style="font-size:2.5rem;font-weight:700;color:#60a5fa;margin:1rem 0;">${score}</div>
+                <div style="font-size:1.2rem;font-weight:600;color:#f8fafc;margin-bottom:0.5rem;">${rating} Credit</div>
+                <ul style="text-align:left;max-width:400px;margin:1rem auto 0;color:#cbd5e1;">
+                    ${analysis.map(a => `<li>${a}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    });
+    </script>
+</body>
+</html>
